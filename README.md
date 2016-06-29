@@ -1,2 +1,2 @@
 # play-with-python
-Some my scripts while playing with Python
+There are some scripts in this repository created while playing with Python
