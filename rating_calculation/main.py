@@ -6,11 +6,14 @@ from time import time
 from tools import eprint
 from calculator import Calculator
 
+percent = 30
 default_rating = 500
 
 parser = argparse.ArgumentParser(description='Calculate users\' rating after fights.')
 parser.add_argument("--default-rating", type=int, dest="default_rating", default=default_rating,
                     help="Default rating for users (default: %(default)s).")
+parser.add_argument("--percent", type=int, dest="percent", default=percent,
+                    help="Percent of user\'s current rating to find opponent (default: %(default)s).")
 parser.add_argument("--limit", type=int, dest="limit", default=10,
                     help="Number of users to read from file (default: %(default)s).")
 parser.add_argument("--fights", type=int, dest="fights", default=1,
@@ -20,13 +23,14 @@ parser.add_argument("--file", type=argparse.FileType('r'), dest="file", default=
 
 args = parser.parse_args()
 default_rating = args.default_rating > 0 and args.default_rating or 500
+percent = args.percent > 0 and args.percent or percent
 limit = args.limit > 0 and args.limit or 10000000
 fights = args.fights > 0 and args.fights or 1
 file = args.file
 eprint(args)
 
-calc = Calculator()
-calc.read(file, default_rating, limit)
+calc = Calculator(percent, default_rating, limit)
+calc.read(file)
 start = time()
 calc.process(fights)
 finish = time()
