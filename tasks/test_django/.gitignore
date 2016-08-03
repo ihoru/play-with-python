@@ -1,0 +1,6 @@
+*~
+.DS_Store
+/activate_env
+__pycache__
+db.sqlite3
+ENV
